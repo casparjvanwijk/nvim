@@ -14,6 +14,19 @@ return {
 					enable = true,
 					additional_vim_regex_highlighting = { "php" },
 				},
+				textobjects = {
+					select = {
+						enable = true,
+						lookahead = true,
+						keymaps = {
+							["if"] = "@function.inner",
+							["af"] = "@function.outer",
+							["ia"] = "@parameter.inner",
+							["aa"] = "@parameter.outer",
+						},
+						include_surrounding_whitespace = true,
+					},
+				},
 			})
 		end
 	},
