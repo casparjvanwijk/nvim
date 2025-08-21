@@ -6,8 +6,18 @@ require("config.lazy")
 
 -- LSP
 vim.lsp.enable({ "gopls", "html", "lua_ls", "shopify_theme_ls", "templ" })
-vim.lsp.config('*', {
+vim.lsp.config("*", {
 	root_markers = { ".git" },
+})
+vim.lsp.config("lua_ls", {
+	settings = {
+		Lua = {
+			workspace = {
+				-- Define vim global.
+				library = vim.api.nvim_get_runtime_file("", true),
+			}
+		}
+	}
 })
 vim.diagnostic.config({ jump = { float = true } })
 

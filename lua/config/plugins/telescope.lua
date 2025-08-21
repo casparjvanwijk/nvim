@@ -9,6 +9,7 @@ return {
 			require("telescope").setup({
 				defaults = require("telescope.themes").get_dropdown({
 					preview = false,
+					file_ignore_patterns = { "_templ%.go$" }
 				}),
 				extensions = {
 					fzf = {}
