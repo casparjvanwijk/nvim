@@ -1,6 +1,5 @@
 require("config.lazy")
 
--- TODO: auto pairs
 -- TODO: check color scheme "vague"
 -- TODO: check harpoon
 -- TODO: auto complete
