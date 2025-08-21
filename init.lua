@@ -5,7 +5,7 @@ require("config.lazy")
 -- TODO: auto complete
 
 -- LSP
-vim.lsp.enable({ "gopls", "html", "lua_ls", "shopify_theme_ls", "templ" })
+vim.lsp.enable({ "gopls", "html", "lua_ls", "shopify_theme_ls", "templ", "ts_ls", "eslint" })
 vim.lsp.config("*", {
 	root_markers = { ".git" },
 })
@@ -19,6 +19,8 @@ vim.lsp.config("lua_ls", {
 		}
 	}
 })
+vim.lsp.config("eslint", {})
+
 vim.diagnostic.config({ jump = { float = true } })
 
 -- Options
@@ -44,6 +46,8 @@ vim.keymap.set("n", "<C-d>", "<C-d>zz")
 vim.keymap.set({ "n", "v" }, "<leader>y", "\"+y")
 vim.keymap.set("n", "<leader>Y", "\"+Y")
 vim.keymap.set("n", "V", "V$")
+vim.keymap.set("v", "<", "<gv")
+vim.keymap.set("v", ">", ">gv")
 
 -- Autocommands
 vim.api.nvim_create_autocmd({ "BufNewFile", "BufRead" }, {
