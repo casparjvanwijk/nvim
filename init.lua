@@ -1,11 +1,10 @@
 require("config.lazy")
 
--- TODO: check color scheme "vague"
--- TODO: check harpoon
--- TODO: auto complete
+-- TODO: snippets
 
 -- LSP
-vim.lsp.enable({ "gopls", "html", "lua_ls", "shopify_theme_ls", "templ", "ts_ls", "eslint" })
+vim.lsp.enable({ "gopls", "html", "lua_ls", "shopify_theme_ls",
+	"templ", "ts_ls", "eslint", "cssls" })
 vim.lsp.config("*", {
 	root_markers = { ".git" },
 })
@@ -24,6 +23,7 @@ vim.lsp.config("eslint", {})
 vim.diagnostic.config({ jump = { float = true } })
 
 -- Options
+vim.opt.background = "dark"
 vim.opt.title = true
 vim.opt.titlestring = "%m %t"
 vim.opt.swapfile = false
