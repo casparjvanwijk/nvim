@@ -10,6 +10,5 @@ return {
 				keywords = { italic = false },
 			},
 		})
-		vim.cmd.colorscheme("tokyonight-night")
 	end
 }

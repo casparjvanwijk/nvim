@@ -7,7 +7,7 @@ return {
 		build = ":TSUpdate",
 		config = function()
 			require("nvim-treesitter.configs").setup({
-				ensure_installed = { "lua", "markdown", "templ", "go",
+				ensure_installed = { "lua", "markdown", "templ", "go", "sql",
 					"javascript", "typescript", "php", "liquid" },
 				auto_install = false,
 				highlight = {
