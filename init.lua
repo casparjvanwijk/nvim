@@ -1,6 +1,7 @@
 require("config.lazy")
 
 -- TODO: snippets
+-- TODO: checken: replace with register (plugin)
 
 -- Options
 vim.opt.background = "dark"
@@ -18,6 +19,7 @@ vim.opt.hlsearch = false
 vim.opt.ignorecase = true
 vim.opt.smartcase = true
 vim.opt.inccommand = "split"
+vim.opt.mouse = ""
 
 -- Themes
 vim.cmd("colorscheme github_dark_default")
@@ -35,7 +37,7 @@ vim.cmd("colorscheme github_dark_default")
 vim.api.nvim_create_autocmd("ColorScheme", {
 	pattern = "*",
 	callback = function()
-		-- Remove background from any theme.
+		-- Remove background from theme.
 		vim.cmd([[
 		  hi Normal guibg=NONE ctermbg=NONE
 		  hi NormalNC guibg=NONE ctermbg=NONE
@@ -57,6 +59,12 @@ vim.api.nvim_create_autocmd("ColorScheme", {
 		end
 	end,
 })
+
+-- Disable mouse scroll, sent as arrow keys by terminal.
+vim.keymap.set("", "<up>", "<nop>", { noremap = true })
+vim.keymap.set("", "<down>", "<nop>", { noremap = true })
+vim.keymap.set("i", "<up>", "<nop>", { noremap = true })
+vim.keymap.set("i", "<down>", "<nop>", { noremap = true })
 
 -- Keymaps
 vim.keymap.set("n", "-", "<cmd>Ex<CR>")
