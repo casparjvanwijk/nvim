@@ -131,7 +131,13 @@ vim.api.nvim_create_autocmd('LspAttach', {
                 group = vim.api.nvim_create_augroup('my.lsp', { clear = false }),
                 buffer = args.buf,
                 callback = function()
-                    vim.lsp.buf.format({ bufnr = args.buf, id = client.id, timeout_ms = 1000, })
+                    local ft = vim.bo[args.buf].filetype
+                    if ft == 'javascript' or ft == 'typescript' or ft == 'javascriptreact' or ft == 'typescriptreact' then
+                        vim.fn.system({ 'prettier', '--write', vim.api.nvim_buf_get_name(args.buf) })
+                        vim.api.nvim_command('edit!')
+                    else
+                        vim.lsp.buf.format({ bufnr = args.buf, id = client.id, timeout_ms = 1000, })
+                    end
                 end,
             })
         end
