@@ -21,6 +21,7 @@ vim.opt.smartcase = true
 vim.opt.inccommand = "split"
 vim.opt.mouse = ""
 vim.opt.expandtab = true
+vim.g.netrw_fastbrowse = 0 -- Do not keep netrw buffer open.
 
 -- Themes
 vim.cmd("colorscheme github_dark_default")
