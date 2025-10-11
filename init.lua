@@ -8,7 +8,6 @@ vim.opt.background = "dark"
 vim.opt.title = true
 vim.opt.titlestring = "%m %t"
 vim.opt.swapfile = false
-vim.opt.undofile = true
 vim.opt.shiftwidth = 4
 vim.opt.tabstop = 4
 vim.opt.wrap = false
@@ -24,7 +23,8 @@ vim.opt.expandtab = true
 vim.g.netrw_fastbrowse = 0 -- Do not keep netrw buffer open.
 
 -- Themes
-vim.cmd("colorscheme github_dark_default")
+vim.cmd("colorscheme quiet")
+-- vim.cmd("colorscheme github_dark_default")
 -- vim.cmd("colorscheme catppuccin-frappe")
 -- vim.cmd("colorscheme solarized")
 -- vim.cmd("colorscheme tokyonight-night")
@@ -82,7 +82,7 @@ vim.keymap.set("n", "gcO", "O" .. vim.bo.commentstring:gsub("%%s", ""))
 
 -- LSP
 vim.lsp.enable({ "gopls", "html", "lua_ls", "shopify_theme_ls",
-    "templ", "ts_ls", "eslint", "cssls" })
+    "templ", "ts_ls", "eslint", "cssls", "astro", "phpactor" })
 vim.lsp.config("*", {
     root_markers = { ".git" },
 })
@@ -134,8 +134,9 @@ vim.api.nvim_create_autocmd('LspAttach', {
                 callback = function()
                     local ft = vim.bo[args.buf].filetype
                     if ft == 'javascript' or ft == 'typescript' or ft == 'javascriptreact' or ft == 'typescriptreact' then
-                        vim.fn.system({ 'prettier', '--write', vim.api.nvim_buf_get_name(args.buf) })
-                        vim.api.nvim_command('edit!')
+                        -- TEMP disabled:
+                        -- vim.fn.system({ 'prettier', '--write', vim.api.nvim_buf_get_name(args.buf) })
+                        -- vim.api.nvim_command('edit!')
                     else
                         vim.lsp.buf.format({ bufnr = args.buf, id = client.id, timeout_ms = 1000, })
                     end
