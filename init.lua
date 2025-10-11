@@ -77,6 +77,9 @@ vim.keymap.set("n", "<leader>Y", "\"+Y")
 vim.keymap.set("n", "V", "V$")
 vim.keymap.set("v", "<", "<gv")
 vim.keymap.set("v", ">", ">gv")
+vim.keymap.set("n", "<leader>r", "<cmd>RenderMarkdown toggle<CR>")
+
+-- TODO: fix:
 vim.keymap.set("n", "gco", "o" .. vim.bo.commentstring:gsub("%%s", ""))
 vim.keymap.set("n", "gcO", "O" .. vim.bo.commentstring:gsub("%%s", ""))
 
