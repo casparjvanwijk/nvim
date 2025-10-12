@@ -78,6 +78,11 @@ vim.keymap.set("n", "V", "V$")
 vim.keymap.set("v", "<", "<gv")
 vim.keymap.set("v", ">", ">gv")
 vim.keymap.set("n", "<leader>r", "<cmd>RenderMarkdown toggle<CR>")
+-- Shortcuts for global marks 
+vim.keymap.set("n", "1", "`1")
+vim.keymap.set("n", "2", "`2")
+vim.keymap.set("n", "3", "`3")
+vim.keymap.set("n", "4", "`4")
 
 -- TODO: fix:
 vim.keymap.set("n", "gco", "o" .. vim.bo.commentstring:gsub("%%s", ""))
@@ -108,6 +113,16 @@ vim.api.nvim_create_autocmd({ "BufNewFile", "BufRead" }, {
     callback = function()
         -- Do not continue comments when inserting newline.
         vim.opt.formatoptions:remove({ "c", "r", "o" })
+    end,
+})
+
+
+vim.api.nvim_create_autocmd({ 'BufEnter' }, {
+    callback = function(args)
+        if vim.bo[args.buf].filetype == 'markdown' then
+            vim.cmd('RenderMarkdown enable')
+            vim.opt_local.wrap = true
+        end
     end,
 })
 
