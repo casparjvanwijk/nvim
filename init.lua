@@ -80,7 +80,6 @@ vim.keymap.set("n", "<leader>Y", "\"+Y")
 vim.keymap.set("n", "V", "V$")
 vim.keymap.set("v", "<", "<gv")
 vim.keymap.set("v", ">", ">gv")
-vim.keymap.set("n", "<leader>r", "<cmd>RenderMarkdown toggle<CR>")
 -- Shortcuts for global marks
 vim.keymap.set("n", "1", "`1")
 vim.keymap.set("n", "2", "`2")
@@ -123,10 +122,14 @@ vim.api.nvim_create_autocmd({ "BufNewFile", "BufRead" }, {
 vim.api.nvim_create_autocmd({ 'BufEnter' }, {
     callback = function(args)
         if vim.bo[args.buf].filetype == 'markdown' then
+            vim.keymap.set("n", "<leader>r", "<cmd>RenderMarkdown toggle<CR>", { buffer = true })
             vim.cmd('RenderMarkdown enable')
             vim.opt_local.wrap = true
             vim.opt_local.linebreak = true
             vim.opt_local.columns = 80
+            -- Move cursor over wrapped lines.
+            vim.keymap.set("n", "j", "gj", { buffer = true })
+            vim.keymap.set("n", "k", "gk", { buffer = true })
         end
     end,
 })

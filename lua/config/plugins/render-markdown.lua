@@ -5,7 +5,20 @@ return {
     -- dependencies = { 'nvim-treesitter/nvim-treesitter', 'nvim-mini/mini.icons' }, -- if you use standalone mini plugins
     -- dependencies = { 'nvim-treesitter/nvim-treesitter', 'nvim-tree/nvim-web-devicons' }, -- if you prefer nvim-web-devicons
     config = function()
-        local heading_pad = { 40, 25, 4, 4, 4, 4 }
+        -- TODO: h5, h6
+        local heading_pad = { 40, 25, 10, 5, 4, 4 }
+
+        -- Define headings after color scheme was loaded.
+        vim.api.nvim_create_autocmd('ColorScheme', {
+            callback = function()
+                vim.api.nvim_set_hl(0, "markdownH1", { bg = "#ffffff", fg = "#000000", bold = true })
+                vim.api.nvim_set_hl(0, "markdownH2", { bg = "#636262", fg = "#ffffff" })
+                vim.api.nvim_set_hl(0, "markdownH3", { bg = "#2b2b2b", fg = "#ffffff" })
+                vim.api.nvim_set_hl(0, "markdownH4", { bg = "#1a1a1a", fg = "#ffffff" })
+                -- TODO: h5, h6
+            end,
+        })
+
         require('render-markdown').setup({
             render_modes = { 'n', 'no', 'v', 'V', 'i', 'R', 'c', 't' },
             anti_conceal = {
@@ -15,8 +28,10 @@ return {
                 sign = false,
                 width = 'block',
                 icons = '',
-                backgrounds = 'CursorLine',
-                foregrounds = 'CursorLine',
+                -- TODO: h5, h6
+                backgrounds = { 'markdownH1', 'markdownH2', 'markdownH3', 'markdownH4' },
+                foregrounds = { 'markdownH1', 'markdownH2', 'markdownH3', 'markdownH4' },
+
                 -- Use indentation to show heading level.
                 left_pad = { heading_pad[1] - 2, heading_pad[2] - 3, heading_pad[3] - 4, heading_pad[4] - 5, heading_pad[5] - 6, heading_pad[6] - 7 }, -- Use indentation to show heading level.
                 -- Make text appear centered within the block background.
