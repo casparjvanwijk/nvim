@@ -20,6 +20,7 @@ vim.opt.smartcase = true
 vim.opt.inccommand = "split"
 vim.opt.mouse = ""
 vim.opt.expandtab = true
+vim.opt.showmode = false
 vim.g.netrw_fastbrowse = 0 -- Do not keep netrw buffer open.
 
 -- Themes
@@ -67,6 +68,8 @@ vim.keymap.set("", "<up>", "<nop>", { noremap = true })
 vim.keymap.set("", "<down>", "<nop>", { noremap = true })
 vim.keymap.set("i", "<up>", "<nop>", { noremap = true })
 vim.keymap.set("i", "<down>", "<nop>", { noremap = true })
+-- TODO: this would be simpler, but does not work?
+-- vim.opt.mousescroll = "ver:0,hor:0"
 
 -- Keymaps
 vim.keymap.set("n", "-", "<cmd>Ex<CR>")
@@ -78,7 +81,7 @@ vim.keymap.set("n", "V", "V$")
 vim.keymap.set("v", "<", "<gv")
 vim.keymap.set("v", ">", ">gv")
 vim.keymap.set("n", "<leader>r", "<cmd>RenderMarkdown toggle<CR>")
--- Shortcuts for global marks 
+-- Shortcuts for global marks
 vim.keymap.set("n", "1", "`1")
 vim.keymap.set("n", "2", "`2")
 vim.keymap.set("n", "3", "`3")
@@ -122,6 +125,8 @@ vim.api.nvim_create_autocmd({ 'BufEnter' }, {
         if vim.bo[args.buf].filetype == 'markdown' then
             vim.cmd('RenderMarkdown enable')
             vim.opt_local.wrap = true
+            vim.opt_local.linebreak = true
+            vim.opt_local.columns = 80
         end
     end,
 })
@@ -152,7 +157,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
                 callback = function()
                     local ft = vim.bo[args.buf].filetype
                     if ft == 'javascript' or ft == 'typescript' or ft == 'javascriptreact' or ft == 'typescriptreact' then
-                        -- TEMP disabled:
+                        -- TODO fix:
                         -- vim.fn.system({ 'prettier', '--write', vim.api.nvim_buf_get_name(args.buf) })
                         -- vim.api.nvim_command('edit!')
                     else
