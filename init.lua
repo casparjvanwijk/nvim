@@ -80,6 +80,13 @@ vim.keymap.set("n", "<leader>Y", "\"+Y")
 vim.keymap.set("n", "V", "V$")
 vim.keymap.set("v", "<", "<gv")
 vim.keymap.set("v", ">", ">gv")
+local ls = require("luasnip")
+vim.keymap.set("i", "<Tab>", function()
+    if ls.expand_or_jumpable() then
+        ls.expand_or_jump()
+    end
+end)
+
 
 -- Use harpoon instead of some global marks so that cursor position is saved.
 local harpoon = require("harpoon")
