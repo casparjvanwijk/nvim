@@ -80,11 +80,17 @@ vim.keymap.set("n", "<leader>Y", "\"+Y")
 vim.keymap.set("n", "V", "V$")
 vim.keymap.set("v", "<", "<gv")
 vim.keymap.set("v", ">", ">gv")
--- Shortcuts for global marks
-vim.keymap.set("n", "1", "`1")
-vim.keymap.set("n", "2", "`2")
-vim.keymap.set("n", "3", "`3")
-vim.keymap.set("n", "4", "`4")
+
+-- Use harpoon instead of some global marks so that cursor position is saved.
+local harpoon = require("harpoon")
+vim.keymap.set("n", "m1", function() harpoon:list():replace_at(1) end)
+vim.keymap.set("n", "m2", function() harpoon:list():replace_at(2) end)
+vim.keymap.set("n", "m3", function() harpoon:list():replace_at(3) end)
+vim.keymap.set("n", "m4", function() harpoon:list():replace_at(4) end)
+vim.keymap.set("n", "1", function() harpoon:list():select(1) end)
+vim.keymap.set("n", "2", function() harpoon:list():select(2) end)
+vim.keymap.set("n", "3", function() harpoon:list():select(3) end)
+vim.keymap.set("n", "4", function() harpoon:list():select(4) end)
 
 -- TODO: fix:
 vim.keymap.set("n", "gco", "o" .. vim.bo.commentstring:gsub("%%s", ""))
