@@ -1,8 +1,5 @@
 require("config.lazy")
 
--- TODO: snippets
--- TODO: checken: replace with register (plugin)
-
 -- Options
 vim.opt.background = "dark"
 vim.opt.title = true
@@ -86,7 +83,6 @@ vim.keymap.set("i", "<Tab>", function()
         ls.expand_or_jump()
     end
 end)
-
 
 -- Use harpoon instead of some global marks so that cursor position is saved.
 local harpoon = require("harpoon")
