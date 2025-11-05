@@ -127,7 +127,6 @@ vim.api.nvim_create_autocmd({ "BufNewFile", "BufRead" }, {
     end,
 })
 
-
 vim.api.nvim_create_autocmd({ 'BufEnter' }, {
     callback = function(args)
         if vim.bo[args.buf].filetype == 'markdown' then
@@ -161,21 +160,14 @@ vim.api.nvim_create_autocmd('LspAttach', {
         end
 
         -- Format on save.
-        if not client:supports_method('textDocument/willSaveWaitUntil')
-            and client:supports_method('textDocument/formatting') then
+        if not (client:supports_method('textDocument/willSaveWaitUntil')
+                and client:supports_method('textDocument/formatting')) then
             vim.api.nvim_create_autocmd('BufWritePre', {
                 group = vim.api.nvim_create_augroup('my.lsp', { clear = false }),
-                buffer = args.buf,
+                buffer = 0,
                 callback = function()
-                    local ft = vim.bo[args.buf].filetype
-                    if ft == 'javascript' or ft == 'typescript' or ft == 'javascriptreact' or ft == 'typescriptreact' then
-                        -- TODO fix:
-                        -- vim.fn.system({ 'prettier', '--write', vim.api.nvim_buf_get_name(args.buf) })
-                        -- vim.api.nvim_command('edit!')
-                    else
-                        vim.lsp.buf.format({ bufnr = args.buf, id = client.id, timeout_ms = 1000, })
-                    end
-                end,
+                    vim.lsp.buf.format({ bufnr = 0, id = client.id, timeout_ms = 1000, })
+                end
             })
         end
     end,
