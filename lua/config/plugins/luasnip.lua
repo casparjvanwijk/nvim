@@ -20,7 +20,7 @@ return {
             s("fpd", fmt('fmt.Println("{}", {})', { i(1), rep(1) }))
         })
         ls.add_snippets("javascript", {
-            s("cl", fmt('console.log("{}", {})', { i(1), rep(1) }))
+            s("cl", fmt("console.log('{}', {})", { i(1), rep(1) }))
         })
         ls.filetype_extend("javascriptreact", { "javascript" })
         ls.filetype_extend("typescript", { "javascript" })

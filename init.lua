@@ -81,6 +81,12 @@ local ls = require("luasnip")
 vim.keymap.set("i", "<Tab>", function()
     if ls.expand_or_jumpable() then
         ls.expand_or_jump()
+    else
+        vim.api.nvim_feedkeys(
+            vim.api.nvim_replace_termcodes("<C-x><C-o>", true, false, true),
+            "n",
+            true
+        )
     end
 end)
 
