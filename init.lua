@@ -22,6 +22,9 @@ vim.g.netrw_fastbrowse = 0 -- Do not keep netrw buffer open.
 
 -- Theme
 vim.cmd("colorscheme quiet")
+if vim.g.colors_name == "quiet" then
+    vim.api.nvim_set_hl(0, "QuickFixLine", { link = "DiffChange" })
+end
 vim.api.nvim_create_autocmd("ColorScheme", {
     pattern = "*",
     callback = function()
