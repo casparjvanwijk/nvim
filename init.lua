@@ -20,24 +20,12 @@ vim.opt.expandtab = true
 vim.opt.showmode = false
 vim.g.netrw_fastbrowse = 0 -- Do not keep netrw buffer open.
 
--- Themes
+-- Theme
 vim.cmd("colorscheme quiet")
--- vim.cmd("colorscheme github_dark_default")
--- vim.cmd("colorscheme catppuccin-frappe")
--- vim.cmd("colorscheme solarized")
--- vim.cmd("colorscheme tokyonight-night")
--- vim.cmd("colorscheme zenbones")
--- vim.cmd("colorscheme arctic")
--- vim.cmd("colorscheme mellow")
-
--- vim.cmd("colorscheme mellifluous")
--- vim.cmd("Mellifluous toggle_transparency")
--- vim.cmd("Mellifluous mountain")
-
 vim.api.nvim_create_autocmd("ColorScheme", {
     pattern = "*",
     callback = function()
-        -- Remove background from theme.
+        -- Remove background from any theme.
         vim.cmd([[
 		  hi Normal guibg=NONE ctermbg=NONE
 		  hi NormalNC guibg=NONE ctermbg=NONE
@@ -48,7 +36,6 @@ vim.api.nvim_create_autocmd("ColorScheme", {
 		  hi LineNr guibg=NONE ctermbg=NONE
 		  hi EndOfBuffer guibg=NONE ctermbg=NONE
 		]])
-
         -- Do not use italics in any highlight group.
         for _, group in ipairs(vim.fn.getcompletion("", "highlight")) do
             local hl = vim.api.nvim_get_hl(0, { name = group })
