@@ -24,6 +24,10 @@ vim.g.netrw_fastbrowse = 0 -- Do not keep netrw buffer open.
 vim.cmd("colorscheme quiet")
 if vim.g.colors_name == "quiet" then
     vim.api.nvim_set_hl(0, "QuickFixLine", { link = "DiffChange" })
+    -- TODO: fix:
+    -- vim.api.nvim_set_hl(0, "TelescopeSelection", { link = "DiffChange" })
+    -- vim.api.nvim_set_hl(0, "TelescopeResultsLineNr", { link = "DiffChange" })
+    -- vim.api.nvim_set_hl(0, "TelescopePreviewLine", { link = "DiffChange" })
 end
 vim.api.nvim_create_autocmd("ColorScheme", {
     pattern = "*",
@@ -68,19 +72,37 @@ vim.keymap.set("n", "V", "V$")
 vim.keymap.set("v", "<", "<gv")
 vim.keymap.set("v", ">", ">gv")
 local ls = require("luasnip")
+
 vim.keymap.set("i", "<Tab>", function()
+    -- Expand snippet.
     if ls.expand_or_jumpable() then
         ls.expand_or_jump()
+    elseif vim.fn.complete_info({ "items", "selected" }).selected == -1 then
+        -- Not currently selecting completion? Start omni complete (without menu).
+        vim.opt.completeopt = {}
+        vim.api.nvim_feedkeys(vim.keycode('<C-x><C-o>'), 'n', true)
     else
-        vim.api.nvim_feedkeys(
-            vim.api.nvim_replace_termcodes("<C-x><C-o>", true, false, true),
-            "n",
-            true
-        )
+        -- Cycle through completions.
+        vim.api.nvim_feedkeys(vim.keycode('<C-n>'), 'n', true)
     end
 end)
+vim.keymap.set("i", "<S-Tab>", function()
+    if vim.fn.complete_info({ "items", "selected" }).selected == -1 then
+        -- Not currently selecting completion? Start omni complete (without menu).
+        vim.opt.completeopt = {}
+        vim.api.nvim_feedkeys(vim.keycode('<C-x><C-o>'), 'n', true)
+    else
+        -- Cycle through completions.
+        vim.api.nvim_feedkeys(vim.keycode('<C-p>'), 'n', true)
+    end
+end)
+-- Show menu when using default omni completion keys.
+vim.keymap.set("i", "<C-x><C-o>", function()
+    vim.opt.completeopt = { 'menu' }
+    vim.api.nvim_feedkeys(vim.keycode('<C-x><C-o>'), 'n', true)
+end)
 
--- Use harpoon instead of some global marks so that cursor position is saved.
+-- Use harpoon instead of some number key global marks so that cursor position is saved.
 local harpoon = require("harpoon")
 vim.keymap.set("n", "m1", function() harpoon:list():replace_at(1) end)
 vim.keymap.set("n", "m2", function() harpoon:list():replace_at(2) end)
