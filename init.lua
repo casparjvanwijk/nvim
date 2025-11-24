@@ -23,7 +23,7 @@ vim.g.netrw_fastbrowse = 0 -- Do not keep netrw buffer open.
 -- Theme
 vim.cmd("colorscheme quiet")
 if vim.g.colors_name == "quiet" then
-    vim.api.nvim_set_hl(0, "QuickFixLine", { link = "DiffChange" })
+    vim.api.nvim_set_hl(0, "QuickFixLine", { link = "Visual" })
     -- TODO: fix:
     -- vim.api.nvim_set_hl(0, "TelescopeSelection", { link = "DiffChange" })
     -- vim.api.nvim_set_hl(0, "TelescopeResultsLineNr", { link = "DiffChange" })
